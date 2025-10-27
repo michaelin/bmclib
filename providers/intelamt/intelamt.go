@@ -167,6 +167,14 @@ func (c *Conn) PowerSet(ctx context.Context, state string) (ok bool, err error) 
 			return false, err
 		}
 		ok = true
+	case "soft":
+		if !on {
+			return true, nil
+		}
+		if err := c.client.PowerOff(ctx); err != nil {
+			return false, err
+		}
+		ok = true
 	case "cycle":
 		if err := c.client.PowerCycle(ctx); err != nil {
 			return false, err

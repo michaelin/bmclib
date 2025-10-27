@@ -152,6 +152,9 @@ func TestPowerSet(t *testing.T) {
 		"power off success":    {want: true, wantState: "off"},
 		"power off success 2":  {want: true, wantState: "off", poweredOn: true},
 		"power off failed":     {want: false, poweredOn: true, wantState: "off", err: errors.New("failed to power off")},
+		"power soft success":   {want: true, wantState: "soft"},
+		"power soft success 2": {want: true, wantState: "soft", poweredOn: true},
+		"power soft failed":    {want: false, wantState: "soft", poweredOn: true, err: errors.New("failed to power soft")},
 		"power cycle success":  {want: true, wantState: "cycle"},
 		"power cycle failed":   {want: false, wantState: "cycle", err: errors.New("failed to power cycle")},
 		"power cycle failed 2": {want: false, wantState: "cycle", poweredOn: false, err: errors.New("failed to power cycle")},
@@ -171,6 +174,8 @@ func TestPowerSet(t *testing.T) {
 			case "power cycle failed 2":
 				m.errPowerCycle = tt.err
 				m.errPowerOn = tt.err
+			case "power soft failed":
+				m.errPowerOff = tt.err
 			default:
 			}
 			m.poweredON = tt.poweredOn
